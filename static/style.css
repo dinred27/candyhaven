@@ -129,6 +129,11 @@ select {
   font-size: 16px;
 }
 
+input[type="text"]:focus {
+  outline: none;
+  border: 2px solid black;
+  box-shadow: none; /* Optional, to remove any glow */
+}
 /* 
           .selectable-img {
             width: 25%;
