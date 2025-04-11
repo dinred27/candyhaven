@@ -1,0 +1,7 @@
+for windows: venv(run as administrator)
+
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+
+
+.\env\Scripts\Activate.ps1
