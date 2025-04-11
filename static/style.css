@@ -196,7 +196,7 @@ select {
             }
             
             /* Optional: style the default empty option differently if needed */
-            /* select:invalid {
+            select:disabled {
               color: gray;
-            } */
+            }
             
