@@ -24,7 +24,7 @@ body{
 .base-container{
     max-width: 500px;
     margin: 50px auto;
-    padding: 40px 20px 20px 20px;
+    padding:20px;
     background: antiquewhite;
     border-radius: 10px;
 
@@ -183,3 +183,20 @@ select {
               font-size: 10px;
               text-align: center;
             }
+
+
+
+            select {
+              color: black;
+            }
+            
+            /* For iOS specifically, this helps force the color even on initial placeholder option */
+            select option {
+              color: black;
+            }
+            
+            /* Optional: style the default empty option differently if needed */
+            /* select:invalid {
+              color: gray;
+            } */
+            

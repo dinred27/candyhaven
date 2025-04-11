@@ -17,50 +17,50 @@ if (deliveryRadio && pickupRadio) {
 
 
 
-// Layer & Shape dynamic sizes
-const shapeSelect = document.getElementById('shape');
-const sizeSelect = document.getElementById('size');
-const layerSelect = document.getElementById('layer');
+// // Layer & Shape dynamic sizes
+// const shapeSelect = document.getElementById('shape');
+// const sizeSelect = document.getElementById('size');
+// const layerSelect = document.getElementById('layer');
 
-const shapeSizeOptions = {
-  round: { single: ['8 inches'], double: ['6 inches', '8 inches', '10 inches', '12 inches', '14 inches', '16 inches'] },
-  square: { single: ['8 inches'], double: ['6 inches', '8 inches', '10 inches', '12 inches', '14 inches', '16 inches'] },
-  oval: { single: ['9 inches'], double: ['9 inches', '12 inches', '15 inches'] },
-  heart: { single: ['9 inches'], double: ['9 inches', '12 inches', '15 inches'] }
-};
+// const shapeSizeOptions = {
+//   round: { single: ['8 inches'], double: ['6 inches', '8 inches', '10 inches', '12 inches', '14 inches', '16 inches'] },
+//   square: { single: ['8 inches'], double: ['6 inches', '8 inches', '10 inches', '12 inches', '14 inches', '16 inches'] },
+//   oval: { single: ['9 inches'], double: ['9 inches', '12 inches', '15 inches'] },
+//   heart: { single: ['9 inches'], double: ['9 inches', '12 inches', '15 inches'] }
+// };
 
-if (layerSelect) {
-    layerSelect.addEventListener('change', () => {
-        if (layerSelect.value) {
-            shapeSelect.disabled = false;
-            sizeSelect.innerHTML = `<option value="">-- Select --</option>`;
-        } else {
-            shapeSelect.disabled = true;
-            sizeSelect.disabled = true;
-            sizeSelect.innerHTML = `<option value="">-- Select --</option>`;
-        }
-    });
-}
+// if (layerSelect) {
+//     layerSelect.addEventListener('change', () => {
+//         if (layerSelect.value) {
+//             shapeSelect.disabled = false;
+//             sizeSelect.innerHTML = `<option value="">-- Select --</option>`;
+//         } else {
+//             shapeSelect.disabled = true;
+//             sizeSelect.disabled = true;
+//             sizeSelect.innerHTML = `<option value="">-- Select --</option>`;
+//         }
+//     });
+// }
 
-if (shapeSelect) {
-    shapeSelect.addEventListener('change', () => {
-        const selectedShape = shapeSelect.value;
-        if (selectedShape) {
-            const sizes = shapeSizeOptions[selectedShape][layerSelect.value];
-            sizeSelect.innerHTML = `<option value="">-- Select --</option>`;
-            sizes.forEach(size => {
-                const option = document.createElement('option');
-                option.value = size;
-                option.textContent = size;
-                sizeSelect.appendChild(option);
-            });
-            sizeSelect.disabled = false;
-        } else {
-            sizeSelect.innerHTML = `<option value="">-- Select --</option>`;
-            sizeSelect.disabled = true;
-        }
-    });
-}
+// if (shapeSelect) {
+//     shapeSelect.addEventListener('change', () => {
+//         const selectedShape = shapeSelect.value;
+//         if (selectedShape) {
+//             const sizes = shapeSizeOptions[selectedShape][layerSelect.value];
+//             sizeSelect.innerHTML = `<option value="">-- Select --</option>`;
+//             sizes.forEach(size => {
+//                 const option = document.createElement('option');
+//                 option.value = size;
+//                 option.textContent = size;
+//                 sizeSelect.appendChild(option);
+//             });
+//             sizeSelect.disabled = false;
+//         } else {
+//             sizeSelect.innerHTML = `<option value="">-- Select --</option>`;
+//             sizeSelect.disabled = true;
+//         }
+//     });
+// }
 
 document.querySelector('.next-button')?.addEventListener('click', () => {
     const data = {
@@ -75,8 +75,8 @@ document.querySelector('.next-button')?.addEventListener('click', () => {
         state: document.getElementById('state')?.value || '',
         zipcode: document.getElementById('zipcode')?.value || '',
         d_phone: document.getElementById('d_phone')?.value || '',
-        // design: document.querySelector('input[name="design"]:checked')?.value || '',
-        layer: layerSelect.value,
+        layer: document.querySelector('input[name="layer"]:checked')?.value || '',
+        //layer: layerSelect.value,
         shape: shapeSelect.value,
         size: sizeSelect.value,
         flavour: document.getElementById('flavour').value,
@@ -88,3 +88,72 @@ document.querySelector('.next-button')?.addEventListener('click', () => {
     localStorage.setItem('cakeOrder', JSON.stringify(data));
     window.location.href = '/confirm';
 });
+
+
+
+  const shapeSizeOptions = {
+    round: { 
+      single: ['8 inches'], 
+      double: ['6 inches', '8 inches', '10 inches', '12 inches', '14 inches', '16 inches'] 
+    },
+    square: { 
+      single: ['8 inches'], 
+      double: ['6 inches', '8 inches', '10 inches', '12 inches', '14 inches', '16 inches'] 
+    },
+    oval: { 
+      single: ['9 inches'], 
+      double: ['9 inches', '12 inches', '15 inches'] 
+    },
+    heart: { 
+      single: ['9 inches'], 
+      double: ['9 inches', '12 inches', '15 inches'] 
+    }
+  };
+
+  const layerInputs = document.querySelectorAll('input[name="layer"]');
+  const shapeSelect = document.getElementById('shape');
+  const sizeSelect = document.getElementById('size');
+
+  let selectedLayer = "";
+
+  function resetSelect(selectElement) {
+    selectElement.value = "";
+    selectElement.disabled = true;
+
+    while (selectElement.options.length > 1) {
+      selectElement.remove(1);
+    }
+  }
+
+  layerInputs.forEach(input => {
+    input.addEventListener('change', () => {
+      selectedLayer = input.value;
+
+      // Enable shape dropdown
+      shapeSelect.disabled = false;
+      shapeSelect.value = "";
+
+      // Reset size dropdown
+      resetSelect(sizeSelect);
+    });
+  });
+
+  shapeSelect.addEventListener('change', () => {
+    resetSelect(sizeSelect);
+
+    const selectedShape = shapeSelect.value;
+
+    if (selectedShape && selectedLayer) {
+      const sizes = shapeSizeOptions[selectedShape][selectedLayer];
+
+      sizeSelect.disabled = false;
+
+      sizes.forEach(size => {
+        const option = document.createElement("option");
+        option.value = size;
+        option.text = size;
+        sizeSelect.appendChild(option);
+      });
+    }
+  });
+
