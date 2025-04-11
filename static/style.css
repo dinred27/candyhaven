@@ -131,7 +131,7 @@ select {
 
 input:focus {
   outline: firebrick;
-  border: 1px solid black;
+  border: 2px solid brown;
   box-shadow: none; /* Optional, to remove any glow */
 }
 /* 
