@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cake Order Form</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        
+
+    </head>
+
+    <body>
+        <h1>Candy Haven</h1>
+
+
+        <div class="container">
+
+            <div class="form-container">
+            <form id="my-form">
+                <h3 style="text-align: center;color: rgb(199, 100, 100);">Cake Order Form</h3>
+                <input type="text" id="name" name="name" placeholder="Full Name" required>
+                <br>
+                
+                <input type="tel" id="phone" name="phone" placeholder="Phone" required>
+                <br>
+
+                <div class="delivery-date-row">
+                    <label for="delivery_date">Delivery Date:</label>
+                    <input type="date" id="delivery_date" name="delivery_date" required>
+                  </div>
+                  
+
+
+                <input type="text" id="company" name="company" placeholder="Company (optional)">
+                <br>
+
+                <input type="text" id="phone" name="phone" placeholder="Phone (optional)">
+                <br>
+                
+                <div class="radio-buttons">
+                    <input type="radio" id="delivery" name="delivery_type" value="Delivery" style="display: none;">
+                    <label for="delivery" class="radio-label">Delivery</label>
+                  
+                    <input type="radio" id="pickup" name="delivery_type" value="Pickup" style="display: none;">
+                    <label for="pickup" class="radio-label">Pickup</label>
+                  </div>
+                  
+
+                <div id="delivery-details" style="display: none;">
+                    <h4>Delivery Details</h4>
+                    <input type="text" id="d_name" name="d_name" placeholder="Name">
+                    <br>
+
+                    <input type="text" id="address" name= "address" placeholder="street address">
+                    <br>
+
+                    <input type="text" id="city" name="city" placeholder="city">
+                    <input type="text" id="state" name="state" placeholder="state">
+                    <input type="number" id="zipcode" name="zipcode" placeholder="zipcode">
+
+                <br>
+                
+                <input type="tel" id="d_phone" name="d_phone" placeholder="Phone">
+                <br>
+
+                </div>
+
+                <h3>Cake Details</h3>
+
+                <h4 style="text-align: center;">Choose Layers</h4>
+                <div class="form-section layer-images">
+                  
+                  <label>
+                    <input type="radio" id ="layer" name="layer" value="single" required hidden>
+                    <img src="{{ url_for('static', filename='pics/single_layer.png') }}" alt="Single Layer" class="selectable-img">
+                    <div class="img-label">Single</div>
+                  </label>
+                
+                  <label>
+                    <input type="radio" id ="layer" name="layer" value="double" required hidden>
+                    <img src="{{ url_for('static', filename='pics/double_layer.png') }}" alt="Double Layer" class="selectable-img">
+                    <div class="img-label">Double</div>
+                  </label>
+                </div>
+
+<!-- 
+                <div class="form-section">
+                    <select id="layer" required>
+                      <option value="">-- Select Layers --</option>
+                      <option value="single">Single Layer</option>
+                      <option value="double">Double Layer</option>
+                    </select>
+                  </div> -->
+              
+                  <div class="form-section">
+                    <select id="shape" required disabled>
+                      <option value="">-- Select Shape --</option>
+                      <option value="round">Round</option>
+                      <option value="square">Square</option>
+                      <option value="oval">Oval</option>
+                      <option value="heart">Heart</option>
+                    </select>
+                  </div>
+              
+                  <div class="form-section">
+                    <select id="size" required disabled>
+                      <option value="">-- Select Size --</option>
+                    </select>
+                  </div>
+
+
+                  <div class="form-section">
+                    <select id="flavour" required>
+                      <option value="">-- Select Flavour --</option>
+                      
+                      <optgroup label="Standard Cake Flavors">
+                      <option value="chocolate">chocolate</option>
+                      <option value="white chocolate">white chocolate</option>
+                      <option value="german chocolate">german chocolate</option>
+                      </optgroup>
+
+                      <optgroup label="Specialty Flavors">
+                        <option value="Amaretto">Amaretto</option>
+                        <option value="Butter Rum">Butter Rum</option>
+                        <option value="Carrot">Carrot</option>
+                        <option value="Coconut">Coconut</option>
+                        <option value="Confetti">Confetti</option>
+                        <option value="Orange Cream">Orange Cream</option>
+                        <option value="Half & Half">Half & Half</option>
+                        <option value="Italian Cream">Italian Cream</option>
+                        <option value="Lemon">Lemon</option>
+                        <option value="Marble">Marble</option>
+                        <option value="Red Velvet">Red Velvet</option>
+                        <option value="Spice">Spice</option>
+                        <option value="Strawberry">Strawberry</option>
+                        <option value="Yellow">Yellow</option>
+
+                        </optgroup>
+                    </select>
+                  </div>
+
+                  <div class="form-section">
+                    <select id="icing">
+                      <option value="">-- Select Icing --</option>
+                      <option value="White Buttercream">White Buttercream</option>
+                      <option value="Chocolate Buttercream">Chocolate Buttercream</option>
+                      <option value="Cream Cheese">Cream Chese</option>
+                      <option value="German Chocolate">German Chocolate</option>
+
+
+
+
+                    </select>
+                  </div>
+
+
+                  <div class="form-section">
+                    <select id="fillings" >
+                      <option value="">-- Select Fillings --</option>
+                      <option value="Raspberry">Raspberry</option>
+                        <option value="Strawberry">Strawberry</option>
+                        <option value="Lemon">Lemon</option>
+                        <option value="Bavarian Cream">Bavarian Cream</option>
+                        <option value="Fudge">Fudge</option>
+                        <option value="Dulce de Leche">Dulce de Leche</option>
+                        <option value="Cherry">Cherry</option>
+                        <option value="Apricot">Apricot</option>
+                        <option value="Pineapple">Pineapple</option>
+
+                    </select>
+                  </div>
+
+
+              
+
+                <h4>Instructions</h4>
+                <textarea name="instructions" rows="10" cols="30" >
+                </textarea>
+
+                <div id="error"></div>
+                <button type="button" class="next-button">Next</button>
+
+
+            </form>
+        </div>
+
+        </div>
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    </body>
+
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Confirm Order</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <style>
+    body {
+      background-color: brown;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      font-family: 'Hobo', sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: antiquewhite;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .base-container {
+      max-width: 500px;
+      background-color: antiquewhite;
+      margin: 40px auto;
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    #confirmation p {
+      font-size: 16px;
+      margin: 10px 0;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    #confirmation strong {
+      color: #5e2e2e;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .buttons {
+      flex: 1;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      background-color: brown;
+      color: white;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .buttons:hover {
+      background-color: #7e1717;
+    }
+
+
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  table tr td {
+    padding: 10px 0;
+    vertical-align: top;
+    font-size: 16px;
+    color: #333;
+  }
+
+  table tr td:first-child {
+    font-weight: bold;
+    color: #5e2e2e;
+    width: 40%;
+    padding-right: 10px;
+  }
+
+    @media (max-width: 600px) {
+      .button-group {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Confirm Your Cake Order</h1>
+  <!-- Inside .base-container -->
+<div class="base-container">
+  <table id="confirmation"></table>
+
+  <div class="button-group">
+    <button class="buttons" onclick="goBack()">Back</button>
+    <button class="buttons" onclick="submitOrder()">Submit Order</button>
+  </div>
+</div>
+
+
+  <script>
+    const data = JSON.parse(localStorage.getItem('cakeOrder'));
+    const confirmationTable = document.getElementById('confirmation');
+  
+    if (data) {
+      let html = "";
+      html += `<tr><td>Name</td><td>${data.name}</td></tr>`;
+      html += `<tr><td>Phone</td><td>${data.phone}</td></tr>`;
+      html += `<tr><td>Delivery Date</td><td>${data.deliveryDate}</td></tr>`;
+      html += `<tr><td>Company</td><td>${data.company}</td></tr>`;
+      html += `<tr><td>Delivery Type</td><td>${data.deliveryType}</td></tr>`;
+  
+      if (data.deliveryType === "Delivery") {
+        html += `<tr><td>Delivery Name</td><td>${data.d_name}</td></tr>`;
+        html += `<tr><td>Address</td><td>${data.address}, ${data.city}, ${data.state} - ${data.zipcode}</td></tr>`;
+        html += `<tr><td>Delivery Phone</td><td>${data.d_phone}</td></tr>`;
+      }
+  
+      html += `<tr><td>Layer</td><td>${data.layer}</td></tr>`;
+      html += `<tr><td>Shape</td><td>${data.shape}</td></tr>`;
+      html += `<tr><td>Size</td><td>${data.size}</td></tr>`;
+      html += `<tr><td>Flavour</td><td>${data.flavour}</td></tr>`;
+      html += `<tr><td>Icing</td><td>${data.icing}</td></tr>`;
+      html += `<tr><td>Fillings</td><td>${data.fillings}</td></tr>`;
+      html += `<tr><td>Instructions</td><td>${data.instructions}</td></tr>`;
+  
+      confirmationTable.innerHTML = html;
+    }
+  
+    function submitOrder() {
+  const orderData = JSON.parse(localStorage.getItem('cakeOrder'));
+  fetch('/submit_order', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(orderData)
+  })
+  .then(res => {
+    if (res.ok) {
+      localStorage.removeItem('cakeOrder');
+      window.location.href = '/submitted';
+    } else {
+      alert("There was a problem submitting your order. Please try again.");
+    }
+  });
+}
+
+  
+    function goBack() {
+      window.location.href = '/';
+    }
+  </script>
+</body>
+</html>

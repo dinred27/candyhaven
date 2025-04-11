@@ -1,0 +1,62 @@
+<!-- submitted.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Order Submitted</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      background-color: brown;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      color: antiquewhite;
+      padding: 40px 20px;
+    }
+
+    .message-box {
+      background-color: antiquewhite;
+      color: #5e2e2e;
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      font-family: 'Hobo', sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+    }
+
+    p {
+      font-size: 18px;
+      margin-top: 20px;
+      line-height: 1.5;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 30px;
+      text-decoration: none;
+      background-color: brown;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    a:hover {
+      background-color: #7e1717;
+    }
+  </style>
+</head>
+<body>
+  <div class="message-box">
+    <h1>Thank You!</h1>
+    <p>Your order has been submitted and is waiting for confirmation from <strong>Candy Haven</strong>.</p>
+    <a href="/">Back to Home</a>
+  </div>
+</body>
+</html>
